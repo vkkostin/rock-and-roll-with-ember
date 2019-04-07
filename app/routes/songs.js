@@ -9,14 +9,15 @@ class Song {
   }
 }
 
-export default class ApplicationRoute extends Route {
-
+export default class SongsRoute extends Route {
   model() {
     let blackDog = new Song('Black Dog', 'Led Zeppelin', 3);
     let yellowLedbetter = new Song('Yellow Ledbetter', 'Pearl Jam', 4);
     let pretender = new Song('The Pretender', 'Foo Fighers', 2);
     let radiohead = new Song('Street Spirit', 'Radiohead', 5);
 
-    return A([blackDog, yellowLedbetter, pretender,radiohead]); 
+    return {
+      songs: A([blackDog, yellowLedbetter, pretender,radiohead])
+    }
   }
 }
