@@ -1,28 +1,7 @@
 import Route from '@ember/routing/route';
 import { A } from '@ember/array';
-import { dasherize } from '@ember/string';
-import { computed } from '@ember/object';
-
-class Band {
-  constructor(name, songs) {
-    this.name = name;
-    this.songs = songs;
-  }
-
-  @computed('name')
-  get slug() {
-    return dasherize(this.name);
-  }
-}
-
-
-class Song {
-  constructor(title, band, rating) {
-    this.title = title;
-    this.band = band;
-    this.rating = rating;
-  }
-}
+import Band from 'rarwe/models/bands';
+import Song from 'rarwe/models/songs';
 
 export default class BandsRoute extends Route {
   model() {

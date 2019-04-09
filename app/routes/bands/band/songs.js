@@ -5,6 +5,7 @@ export default class SongsRoute extends Route {
     const band = this.modelFor('bands.band').band;
     return {
       songs: band.songs,
+      band: band.name,
     }
   }
 }
