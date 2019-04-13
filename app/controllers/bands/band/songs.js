@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import Song from 'rarwe/models/songs';
-import { action } from '@ember/object';
+import { action, set } from '@ember/object';
 import { empty } from '@ember/object/computed';
 
 export default class SongsController extends Controller {
@@ -25,5 +25,10 @@ export default class SongsController extends Controller {
   @action
   cancelAddSong() {
     this.set('isAddingSong', false);
+  }
+
+  @action
+  updateRating(song, rating) {
+    set(song, 'rating', song.rating === rating ? 0 : rating);
   }
 }
