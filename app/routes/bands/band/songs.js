@@ -1,13 +1,9 @@
 import Route from '@ember/routing/route';
 import { action } from '@ember/object';
 
-export default class SongsRoute extends Route {
+export default class extends Route {
   model() {
-    const band = this.modelFor('bands.band').band;
-    return {
-      songs: band.songs,
-      band: band.name,
-    }
+    return this.modelFor('bands.band');
   }
 
   resetController(controller) {
@@ -19,7 +15,7 @@ export default class SongsRoute extends Route {
 
   @action
   didTransition() {
-    let bandName = this.modelFor(this.routeName).band;
-    document.title = `${bandName} Songs - Rock & Roll`;
+    let band = this.modelFor(this.routeName);
+    document.title = `${band.name} Songs - Rock & Roll`;
   }
 }

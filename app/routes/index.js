@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
 
-export default class IndexRoute extends Route {
+export default class extends Route {
   beforeModel() {
     this.transitionTo('bands');
   }

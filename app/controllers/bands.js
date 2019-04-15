@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
-import Band from 'rarwe/models/bands';
 import { empty } from '@ember/object/computed';
 
 export default class BandsController extends Controller {
@@ -16,12 +15,14 @@ export default class BandsController extends Controller {
   }
 
   @action
-  saveBand(event) {
+  async saveBand(event) {
     event.preventDefault();
-    const newBand = new Band(this.newBandName);
-    this.model.bands.pushObject(newBand);
+
+    let newBand = this.store.createRecord('band', { name: this.newBandName });
+    await newBand.save();
+
     this.setProperties({ newBandName: '', isAddingBand: false });
-    this.transitionToRoute('bands.band.songs', newBand.slug);
+    this.transitionToRoute('bands.band.songs', newBand.id);
   }
 
   @action

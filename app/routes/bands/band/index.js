@@ -1,8 +1,8 @@
 import Route from '@ember/routing/route';
 
-export default class BandsBandIndexRoute extends Route {
+export default class extends Route {
   redirect(model) {
-    if (model.band.description) {
+    if (model.description) {
       this.transitionTo('bands.band.details');
     } else {
       this.transitionTo('bands.band.songs');
