@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { A } from '@ember/array';
 import Band from 'rarwe/models/bands';
 import Song from 'rarwe/models/songs';
+import { action } from '@ember/object';
 
 export default class BandsRoute extends Route {
   model() {
@@ -13,11 +14,17 @@ export default class BandsRoute extends Route {
 
 
     let ledZeppelin = new Band('Led Zeppelin', A([blackDog]));
-    let pearlJam = new Band('Pearl Jam', A([yellowLedbetter, daughter]));
+    let pearlJam = new Band('Pearl Jam', A([yellowLedbetter, daughter]), 'Pearl Jam is an American rock band, formed in Seattle, Washington in 1990.');
     let fooFighters = new Band('Foo Fighters', A([pretender]));
     let radiohead = new Band('Radiohead', A([streetSpirit]));
 
     return {
-      bands: A([ledZeppelin, pearlJam, fooFighters, radiohead]) }
+      bands: A([ledZeppelin, pearlJam, fooFighters, radiohead]) 
     }
+  }
+
+  @action
+  didTransition() {
+    document.title = 'Bands - Rock & Roll';
+  }
 }
