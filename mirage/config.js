@@ -3,6 +3,11 @@ export default function() {
   this.get('/bands/:id');
   this.post('/bands');
   this.post('/songs');
+  // this.get('/bands/:id/songs');
+  this.get('/bands/:id/songs', function(schema, request) {
+    let id = request.params.id;
+    return schema.songs.where({ bandId: id }); 
+  });
 
   // These comments are here to help you get started. Feel free to delete them.
 

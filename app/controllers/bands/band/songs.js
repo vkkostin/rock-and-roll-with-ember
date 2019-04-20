@@ -1,10 +1,36 @@
 import Controller from '@ember/controller';
-import { action, set } from '@ember/object';
-import { empty } from '@ember/object/computed';
+import { action, set, computed } from '@ember/object';
+import { empty, sort } from '@ember/object/computed';
 
 export default class SongsController extends Controller {
   isAddingSong = false;
   newSongName = '';
+  sortBy = 'ratingDesc';
+  searchTerm = '';
+
+  queryParams = ['sortBy', 'searchTerm'];
+
+  @computed('model.songs.@each.title', 'searchTerm')
+  get matchingSongs() {
+    let searchTerm = this.searchTerm.toLowerCase(); 
+    return this.model.get('songs').filter((song) => {
+      return song.title.toLowerCase().includes(searchTerm); 
+    });
+  }
+
+  @computed('sortBy')
+  get sortProperties() {
+    let options = {
+      ratingDesc: ['rating:desc', 'title:asc'],
+      ratingAsc:  ['rating:asc', 'title:asc'],
+      titleDesc:  ['title:desc'],
+      titleAsc:   ['title:asc'],
+    }
+    return options[this.sortBy];
+  }
+
+  @sort('matchingSongs', 'sortProperties')
+  sortedSongs = null;
 
   @empty('newSongName')
   isAddButtonDisabled = true;
