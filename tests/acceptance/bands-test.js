@@ -61,7 +61,7 @@ module('Acceptance | Bands', function(hooks) {
 
     assert.equal(currentURL(), '/bands/1/songs?sortBy=titleDesc');
 
-    assert.dom('[data-test-rr=song-list-item]:first-child').hasText('Spinning in Daffodils', 'The first song is the one that comes last in the alphabet');
+    assert.dom('[data-test-rr=song-list-item]:first-child').hasText('Spinning In Daffodils', 'The first song is the one that comes last in the alphabet');
     assert.dom('[data-test-rr=song-list-item]:last-child').hasText('Elephants', 'The last song is the one that comes first in the alphabet');
 
     await click('[data-test-rr=sort-by-title-asc]');
