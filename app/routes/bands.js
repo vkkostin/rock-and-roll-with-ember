@@ -1,13 +1,14 @@
 import Route from '@ember/routing/route';
-import { action } from '@ember/object';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
-export default class extends Route {
+export default Route.extend(AuthenticatedRouteMixin, {
   model() {
-    return this.store.findAll('band')
-  }
+    return this.store.findAll('band');
+  },
 
-  @action
-  didTransition() {
-    document.title = 'Bands - Rock & Roll';
+  actions: {
+    didTransition() {
+      document.title = 'Bands - Rock & Roll';
+    }
   }
-}
+});
