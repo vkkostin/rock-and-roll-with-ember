@@ -1,8 +1,20 @@
 import Controller from '@ember/controller';
-import { action } from '@ember/object';
+import { action, computed } from '@ember/object';
 
 export default class BandsBandDetailsController extends Controller {
   isEditing = false;
+
+
+  @computed('_showErrors')
+  get showErrors() {
+    return this._showErrors || { description: false };
+  }
+
+  set showErrors(value) {
+    this.set('_showErrors', value); 
+    return this._showErrors;
+  }
+
 
   @action
   edit() {
@@ -11,7 +23,11 @@ export default class BandsBandDetailsController extends Controller {
 
   @action
   async save() {
-    await this.model.save();
-    this.set('isEditing', false);
+    let band = this.model;
+    this.set('showErrors.description', true); 
+    if (band.validations.isValid) {
+      await band.save();
+      this.set('isEditing', false); 
+    }
   }
 }

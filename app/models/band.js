@@ -1,21 +1,27 @@
 import DS from 'ember-data';
 import { computed } from '@ember/object';
-
+import { buildValidations, validator } from 'ember-cp-validations';
 const { Model, attr, hasMany } = DS;
 
-export default class Band extends Model {
-  @attr('string', )
-  name;
+const Validations = buildValidations({
+  description: [
+    validator('length', {
+      min: 12,
+      message: "The description needs to be at least 12 characters"
+    }),
+    validator('year-of-formation')
+  ]
+});
 
-  @attr('string', { defaultValue: '' })
-  description;
+export default Model.extend(Validations, {
+  name: attr('string'),
+  description: attr('string', { defaultValue: '' }),
 
-  @hasMany('song')
-  songs;
+  songs: hasMany('song'),
 
-  @computed('songs.@each.rating')
-  get isGreatBand() {
+  isGreatBand: computed('songs.@each.rating', function() {
     let goodSongs = this.songs.filter(song => song.rating >= 4);
     return goodSongs.length >= 2;
-  }
-}
+  })
+})
+

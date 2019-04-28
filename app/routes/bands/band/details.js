@@ -8,6 +8,7 @@ export default class extends Route {
 
   resetController(controller) {
     controller.set('isEditing', false);
+    controller.set('showErrors', null);
   }
 
   @action
